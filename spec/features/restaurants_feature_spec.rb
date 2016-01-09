@@ -37,4 +37,17 @@ feature 'restaurants' do
       expect(current_path).to eq restaurant_path(kfc)
     end 
   end
+  context 'editing restaurants' do 
+    before do 
+      Restaurant.create(name: 'KFC') 
+    end
+    scenario 'let a user edit a restaurant' do 
+      visit restaurants_path
+      click_on 'Edit KFC'
+      fill_in 'Name', with: 'Kentucky Fried Chiken'
+      click_on 'Update Restaurant'
+      expect(page).to have_content 'Kentucky Fried Chiken'
+      expect(current_path).to eq restaurants_path
+    end 
+  end 
 end
