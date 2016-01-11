@@ -1,3 +1,13 @@
+<% if @restaurant.errors.any? %>
+	<section id='errors'>
+		<h2>There are <%= pluralize(@restaurant.errors.count, 'error') %></h2>
+		<ul>
+			<% @restaurant.errors.full_messages.each do |msg| %>
+		    <li><%= msg %></li>
+			<% end %>
+		</ul>
+	</section>
+<% end %>
 <%= form_for @restaurant do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
