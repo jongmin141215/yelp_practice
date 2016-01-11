@@ -8,4 +8,10 @@ describe Restaurant do
 		expect(restaurant).to have(1).error_on(:name)
 		expect(restaurant).not_to be_valid
 	end
+	it 'is not valid unless it has a unique name' do 
+		restaurant_1 = Restaurant.create(name: 'KFC')
+		restaurant_2 = Restaurant.new(name: 'KFC')
+		expect(restaurant_2).to have(1).error_on(:name)
+		expect(restaurant_2).not_to be_valid
+	end
 end
