@@ -1,5 +1,5 @@
 class RestaurantsController < ApplicationController
-	before_action :authenticate_user!, only: :create
+	before_action :authenticate_user!, only: [:create, :update, :destroy]
   def index
     @restaurants = Restaurant.all
   end
@@ -12,6 +12,7 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.new(restaurant_params)
     if @restaurant.save
 			@restaurant.user = current_user
+			@restaurant.save
 			redirect_to restaurants_url
     else
 			render 'new'
@@ -29,17 +30,21 @@ class RestaurantsController < ApplicationController
 			@restaurant.update(restaurant_params)
 			redirect_to restaurants_url
 		else
-			p 'bye bye'
 			flash.now[:notice] = "You cannot edit others' restaurants."
 			render 'edit'
 		end
 
   end
   def destroy
-    @restaurant = Restaurant.find(params[:id])
-    @restaurant.destroy
-    flash[:notice] = 'Restaurant deleted successfully'
-    redirect_to restaurants_url
+		@restaurant = Restaurant.find(params[:id])
+		if current_user && current_user.id == @restaurant.user_id
+			@restaurant.destroy
+	    flash[:notice] = 'Restaurant deleted successfully'
+	    redirect_to restaurants_url
+		else
+			flash[:notice] = "You cannot delete other's restaurants."
+			redirect_to restaurants_url
+		end
   end
   private
   def restaurant_params
