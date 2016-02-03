@@ -28,9 +28,9 @@ feature 'restaurants' do
 			expect(current_path).to eq new_user_session_path
 		end
 
-    scenario 'user cannot edit a restaurant' do
-
-    end
+    # scenario 'user cannot edit a restaurant' do
+    #
+    # end
 
     context 'deleting restaurants' do
       before do
@@ -79,18 +79,10 @@ feature 'restaurants' do
       before do
         @user = create :user
         @user2 = create :user2
-        visit new_user_session_url
-        fill_in 'Email', with: @user.email
-        fill_in 'Password', with: @user.password
-        click_on 'Log in'
-        click_on 'Add a restaurant'
-        fill_in 'Name', with: 'KFC'
-        click_on 'Create Restaurant'
+        sign_in(@user.email, @user.password)
+        add_restaurant('KFC')
         click_on 'Sign out'
-        visit new_user_session_url
-        fill_in 'Email', with: @user2.email
-        fill_in 'Password', with: @user2.password
-        click_on 'Log in'
+        sign_in(@user2.email, @user2.password)
       end
 
       scenario "User cannot edit someone else's restaurants" do

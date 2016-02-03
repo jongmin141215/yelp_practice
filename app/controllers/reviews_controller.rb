@@ -5,8 +5,13 @@ class ReviewsController < ApplicationController
 	end
 	def create
 		@restaurant = Restaurant.find(params[:restaurant_id])
-		@review = @restaurant.reviews.create(review_params)
-		redirect_to restaurants_url
+		@review = @restaurant.build_review(review_params, current_user)
+		if @review.save
+			redirect_to restaurants_url
+		else
+			flash[:notice] = 'You cannot leave multiple reviews for one restaurant'
+			render 'new'
+		end
 	end
 	private
 	def review_params
