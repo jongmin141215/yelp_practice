@@ -25,5 +25,16 @@ feature 'reviewing' do
     expect(page).not_to have_content 'Good'
   end
 
+  scenario 'displays average rating for all reviews' do
+    user = create :user
+    sign_in(user.email, user.password)
+    leave_review('So so', 3)
+    click_on 'Sign out'
+    user2 = create :user2
+    sign_in(user2.email, user2.password)
+    leave_review('Great', 5)
+    expect(page).to have_content 'Average rating: 4'
+  end
+
 
 end
