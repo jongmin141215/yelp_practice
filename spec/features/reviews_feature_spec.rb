@@ -33,8 +33,10 @@ feature 'reviewing' do
     user2 = create :user2
     sign_in(user2.email, user2.password)
     leave_review('Great', 5)
-    expect(page).to have_content 'Average rating: 4'
+    expect(page).to have_content 'Average rating: ★★★★☆'
   end
+
+
 
 
 end
