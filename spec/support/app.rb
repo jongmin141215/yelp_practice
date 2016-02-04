@@ -11,4 +11,12 @@ module AppHelpers
     fill_in 'Name', with: name
     click_on 'Create Restaurant'
   end
+
+  def leave_review(thoughts, rating)
+    visit restaurants_url
+    click_on 'Review KFC'
+    fill_in 'Thoughts', with: thoughts
+    select rating, from: 'Rating'
+    click_on 'Leave Review'
+  end
 end
