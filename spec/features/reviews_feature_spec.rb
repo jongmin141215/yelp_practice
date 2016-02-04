@@ -36,7 +36,12 @@ feature 'reviewing' do
     expect(page).to have_content 'Average rating: ★★★★☆'
   end
 
-
+  scenario 'displays how long ago the review was created' do
+    user = create :user
+    sign_in(user.email, user.password)
+    leave_review('So so', 3)
+    expect(page).to have_content 'less than a minute ago'
+  end
 
 
 end
