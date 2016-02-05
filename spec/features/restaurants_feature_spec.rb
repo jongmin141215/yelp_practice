@@ -48,27 +48,27 @@ feature 'restaurants' do
 	context 'user signed in' do
 	  context 'creating restaurants' do
       before do
-        user = User.create(email: 'test@test.com', password: 'password')
-        visit new_user_session_url
-        fill_in 'Email', with: 'test@test.com'
-        fill_in 'Password', with: 'password'
-        click_on 'Log in'
+        user = create :user
+        sign_in(user.email, user.password)
       end
       scenario 'prompts user to fill out a form, then displays the new restaurant' do
-        visit restaurants_url
-        click_on 'Add a restaurant'
-        fill_in 'Name', with: 'KFC'
-        click_on 'Create Restaurant'
+        add_restaurant('KFC')
         expect(page).to have_content 'KFC'
         expect(current_path).to eq restaurants_path
       end
 
+      scenario 'users can upload a picture for restaurants' do
+        click_on 'Add a restaurant'
+        fill_in 'Name', with: 'KFC'
+        attach_file('Image', './spec/fixtures/background.jpg')
+        click_on 'Create Restaurant'
+        expect(page).to have_css 'img'
+        expect(page).to have_content 'background.jpg'
+      end
+
       context 'an invalid restaurant' do
 		  	scenario 'does not let you submit a name that is too short' do
-					visit restaurants_url
-					click_on 'Add a restaurant'
-					fill_in 'Name', with: 'kf'
-					click_on 'Create Restaurant'
+          add_restaurant('kf')
 					expect(page).not_to have_css 'h2', text: 'kf'
 					expect(page).to have_content 'error'
 				end
