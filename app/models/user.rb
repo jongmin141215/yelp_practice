@@ -8,9 +8,6 @@ class User < ActiveRecord::Base
   has_many :restaurants
   has_many :reviews
 
-  # def has_reviewed?(restaurant)
-  #   reviewed_restaurants.include? restaurant
-  # end
 	def self.from_omniauth(auth)
   	where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
    	  user.email = auth.info.email

@@ -8,8 +8,7 @@
 		</ul>
 	</section>
 <% end %>
-<%= form_for @restaurant do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+<%= form_for @restaurant, html: { multipart: true } do |f| %>
+	<%= render :partial => "form", :locals => { :f => f } %>
   <%= f.submit 'Create Restaurant' %>
 <% end %>
