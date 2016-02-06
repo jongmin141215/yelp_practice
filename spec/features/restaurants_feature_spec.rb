@@ -63,7 +63,6 @@ feature 'restaurants' do
         attach_file('Image', './spec/fixtures/background.jpg')
         click_on 'Create Restaurant'
         expect(page).to have_css 'img'
-        expect(page).to have_content 'background.jpg'
       end
 
       context 'an invalid restaurant' do
