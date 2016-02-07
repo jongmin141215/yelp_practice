@@ -40,8 +40,7 @@ feature 'restaurants' do
 
       scenario 'User cannot delete restaurants' do
         visit restaurants_url
-        click_on 'Delete KFC'
-        expect(current_path).to eq new_user_session_path
+        expect(page).not_to have_link 'Delete KFC'
       end
     end
 	end
@@ -84,14 +83,18 @@ feature 'restaurants' do
         sign_in(@user2.email, @user2.password)
       end
 
-      scenario "User cannot edit someone else's restaurants" do
-        visit restaurants_path
-        click_on 'Edit KFC'
-        fill_in 'Name', with: 'Kentucky Fried Chiken'
-        click_on 'Update Restaurant'
-        expect(page).to have_content "You cannot edit others' restaurants."
-        expect(page).not_to have_content 'Kentucky Fried Chiken'
+      scenario "User cannot see other users' edit link" do
+        visit restaurants_url
+        expect(page).not_to have_link 'Edit KFC'
       end
+      # scenario "User cannot edit someone else's restaurants" do
+      #   visit restaurants_path
+      #   click_on 'Edit KFC'
+      #   fill_in 'Name', with: 'Kentucky Fried Chiken'
+      #   click_on 'Update Restaurant'
+      #   expect(page).to have_content "You cannot edit others' restaurants."
+      #   expect(page).not_to have_content 'Kentucky Fried Chiken'
+      # end
       # scenario 'let a user edit a restaurant' do
       #   visit restaurants_path
       #   click_on 'Edit KFC'
@@ -100,11 +103,15 @@ feature 'restaurants' do
       #   expect(page).to have_content 'Kentucky Fried Chiken'
       #   expect(current_path).to eq restaurants_path
       # end
-      scenario "User cannot delete someone else's restaurants" do
+      scenario "Users cannot see other users' delete link" do
         visit restaurants_url
-        click_on 'Delete KFC'
-        expect(page).to have_content 'KFC'
+        expect(page).not_to have_link 'Delete KFC'
       end
+      # scenario "User cannot delete someone else's restaurants" do
+      #   visit restaurants_url
+      #   click_on 'Delete KFC'
+      #   expect(page).to have_content 'KFC'
+      # end
     end
 
 
