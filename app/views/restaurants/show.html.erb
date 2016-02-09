@@ -1,5 +1,6 @@
 <p><%= @restaurant.name %></p>
-<p><%- @restaurant.description %></p>
+<p><%= @restaurant.description %></p>
+Address: <%= @restaurant.street %>, <%= @restaurant.city %>, <%= @restaurant.state %>
 <div id='map'></div>
 <h3>Reviews for <%= @restaurant.name %></h3>
 <% if @restaurant.reviews.any? %>

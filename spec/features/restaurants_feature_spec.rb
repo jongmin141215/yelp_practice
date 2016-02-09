@@ -64,6 +64,17 @@ feature 'restaurants' do
         expect(page).to have_css 'img'
       end
 
+      scenario 'users can add the address of restaurants' do
+        click_on 'Add a restaurant'
+        fill_in 'Name', with: 'KFC'
+        fill_in 'Street', with: '3674 Torrey View Ct'
+        fill_in 'City', with: 'San Diego'
+        fill_in 'State', with: 'CA'
+        click_on 'Create Restaurant'
+        click_on 'KFC'
+        expect(page).to have_content 'Address: 3674 Torrey View Ct, San Diego, CA'
+      end
+
       context 'an invalid restaurant' do
 		  	scenario 'does not let you submit a name that is too short' do
           add_restaurant('kf')
