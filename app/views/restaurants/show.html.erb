@@ -17,30 +17,35 @@ Address: <%= @restaurant.street %>, <%= @restaurant.city %>, <%= @restaurant.sta
 
 <script>
 	var map, marker;
-	function initialize() {
-		addressInput = { lat: 40.680898, lng: -8.684059}
-		var mapOptions = {
-			zoom: 4,
-			center: addressInput
-		}
-		map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-		// marker = new google.maps.Marker({
-		// 		position: myLatlng,
-		// 		title:"Hello World!"
-		// });
-		//
-		// // To add the marker to the map, call setMap();
-		// marker.setMap(map);
-		google.maps.event.addDomListener(window, "load", searchAddress);
-	}
+	// function initialize() {
+	// 	addressInput = { lat: 40.680898, lng: -8.684059}
+	// 	var mapOptions = {
+	// 		zoom: 4,
+	// 		center: addressInput
+	// 	}
+	// 	map = new google.maps.Map(document.getElementById("map"), mapOptions);
+	//
+	// 	// marker = new google.maps.Marker({
+	// 	// 		position: myLatlng,
+	// 	// 		title:"Hello World!"
+	// 	// });
+	// 	//
+	// 	// // To add the marker to the map, call setMap();
+	// 	// marker.setMap(map);
+	// 	// google.maps.event.addDomListener(window, "load", searchAddress);
+	// }
 
 	function searchAddress() {
-		var addressInput = '3674 Torrey View Ct'
+		var addressInput = '<%= @restaurant.street %>, <%= @restaurant.city %>, <%= @restaurant.state %>'
 		var geocoder = new google.maps.Geocoder();
 		geocoder.geocode({ address: addressInput }, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
 				var myResult = results[0].geometry.location;
+				var mapOptions = {
+					zoom: 4,
+					center: addressInput
+				}
+				map = new google.maps.Map(document.getElementById("map"), mapOptions);
 				createMarker(myResult);
 				map.setCenter(myResult);
 				map.setZoom(17);
@@ -60,4 +65,4 @@ Address: <%= @restaurant.street %>, <%= @restaurant.city %>, <%= @restaurant.sta
 		})
 	}
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?callback=initialize" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?callback=searchAddress" async defer></script>
