@@ -6,14 +6,7 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <script>function initMap() {
-  	var mapDiv = document.getElementById('map');
-  	var map = new google.maps.Map(mapDiv, {
-  		center: {lat: 44.540, lng: -78.546},
-  		zoom: 8
-  	});
-  }</script>
-  <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+
 <body>
 <% if user_signed_in? %>
   <%= current_user.email %>
