@@ -11,6 +11,14 @@
 }
 .restaurant {
 	display: inline-block;
-	background-color: red;
+	border: 1px solid #EEE;
 	width: 33%;
+}
+#navbar {
+	border-bottom: 1px solid #EEE;
+	height: 50px;
+}
+#email {
+	font-size: 23px;
+	color: #BBB;
 }

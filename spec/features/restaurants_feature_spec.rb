@@ -136,6 +136,12 @@ feature 'restaurants' do
       expect(page).to have_content 'KFC'
       expect(current_path).to eq restaurant_path(kfc)
     end
+
+    scenario 'can go back to index page by clicking back button' do
+      visit restaurant_path(kfc)
+      click_on 'Back'
+      expect(current_path).to eq restaurants_path
+    end
   end
 
 
