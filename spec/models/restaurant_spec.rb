@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 describe Restaurant do
-	# before do
-	# 	Restaurant.destroy_all
-	# end
+
 	it { is_expected.to have_many :reviews }
 
 	it 'is not valid with a name of less than three characters' do
