@@ -2,11 +2,12 @@ require 'rails_helper'
 
 feature 'endorsing reviews' do
   before do
-    kfc = Restaurant.create(name: 'KFC')
-    kfc.reviews.create(thoughts: 'So so', rating: 3)
+    @kfc = Restaurant.create(name: 'KFC')
+    @kfc.reviews.create(thoughts: 'So so', rating: 3)
     @user = create :user
     @user2 = create :user2
     sign_in(@user.email, @user.password)
+    visit restaurant_path(@kfc)
   end
 
   scenario 'a user can endorse a review, which updates the review endorsement count', js: true do
@@ -18,8 +19,9 @@ feature 'endorsing reviews' do
     click_on 'Endorse Review'
     click_on 'Sign out'
     sign_in(@user2.email, @user2.password)
+    visit restaurant_path(@kfc)
     click_on 'Endorse Review'
-    visit restaurants_path # need to fix the plural issue
+    visit restaurant_path(@kfc) # need to fix the plural issue and remove this line
     expect(page).to have_content '2 endorsements'
   end
 
