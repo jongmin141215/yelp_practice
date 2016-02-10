@@ -7,7 +7,7 @@ class ReviewsController < ApplicationController
 		@restaurant = Restaurant.find(params[:restaurant_id])
 		@review = @restaurant.reviews.build_with_user(review_params, current_user)
 		if @review.save
-			redirect_to restaurants_url
+			redirect_to restaurant_path(@restaurant)
 		else
 			flash[:notice] = 'You cannot leave multiple reviews for one restaurant'
 			render 'new'

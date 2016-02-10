@@ -5,23 +5,22 @@ feature 'reviewing' do
     @user = create :user
     sign_in(@user.email, @user.password)
     add_restaurant('KFC')
+    @restaurant = Restaurant.find_by(name: 'KFC')
   end
 
   scenario 'allows users to leave a review using a form' do
     leave_review('So so', 3)
-
     expect(page).to have_content 'So so'
-    expect(current_path).to eq restaurants_path
+    expect(current_path).to eq restaurant_path(@restaurant)
   end
 
   scenario 'Users can only leave one review per restaurant' do
     leave_review('So so', 3)
     leave_review('Good', 1)
     expect(page).to have_content 'You cannot leave multiple reviews for one restaurant'
-    visit restaurants_url
+    visit restaurant_path(@restaurant)
     expect(page).not_to have_content 'Good'
   end
-
 
   scenario 'displays average rating for all reviews' do
     leave_review('So so', 3)
@@ -37,5 +36,11 @@ feature 'reviewing' do
     expect(page).to have_content 'less than a minute ago'
   end
 
+  scenario 'Users can click "Read Reviews" to read reviews' do
+    leave_review('good', 4)
+    visit restaurants_url
+    click_on 'Read Reviews'
+    expect(page).to have_content 'good'
+  end
 
 end
