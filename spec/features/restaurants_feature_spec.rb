@@ -19,12 +19,9 @@ feature 'restaurants' do
     end
   end
 	context 'user not signed in' do
- 		scenario 'user cannot create a restaurant' do
+ 		scenario 'redirected to sign in page' do
 			visit restaurants_url
 			click_link 'Add a restaurant'
-			fill_in 'Name', with: 'KFC'
-			click_on 'Create Restaurant'
-			expect(page).not_to have_content 'KFC'
 			expect(current_path).to eq new_user_session_path
 		end
 
