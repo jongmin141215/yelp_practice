@@ -40,7 +40,7 @@ feature 'restaurants' do
 
       scenario 'User cannot delete restaurants' do
         visit restaurants_url
-        expect(page).not_to have_link 'Delete KFC'
+        expect(page).not_to have_link 'Delete'
       end
     end
 	end
@@ -96,7 +96,7 @@ feature 'restaurants' do
 
       scenario "User cannot see other users' edit link" do
         visit restaurants_url
-        expect(page).not_to have_link 'Edit KFC'
+        expect(page).not_to have_link 'Edit'
       end
       # scenario "User cannot edit someone else's restaurants" do
       #   visit restaurants_path
@@ -116,7 +116,7 @@ feature 'restaurants' do
       # end
       scenario "Users cannot see other users' delete link" do
         visit restaurants_url
-        expect(page).not_to have_link 'Delete KFC'
+        expect(page).not_to have_link 'Delete'
       end
       # scenario "User cannot delete someone else's restaurants" do
       #   visit restaurants_url
